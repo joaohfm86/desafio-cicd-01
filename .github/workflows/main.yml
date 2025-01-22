@@ -36,7 +36,7 @@ jobs:
          with:
           push: true
           context: ./src
-          file: ./src/Review-Filmes.Web/DockerFile
+          file: ./src/Review-Filmes.Web/Dockerfile
           tags: |
             joaohfm/projeto-devops-pro:latest
             joaohfm/projeto-devops-pro:v${{ github.run_number }}
