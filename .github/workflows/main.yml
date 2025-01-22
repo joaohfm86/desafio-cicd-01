@@ -22,6 +22,7 @@ jobs:
   release:
     name: Criação de Release
     runs-on: ubuntu-latest
+    needs: [build]
     steps:
       -  name: Obtendo o código do projeto
          uses: actions/checkout@v4
@@ -35,7 +36,7 @@ jobs:
          with:
           push: true
           context: ./src
-          file: ./src/Review-Filmes.web/DockerFile
+          file: ./src/Review-Filmes.Web/DockerFile
           tags: |
             joaohfm/projeto-devops-pro:latest
             joaohfm/projeto-devops-pro:v${{ github.run_number }}
