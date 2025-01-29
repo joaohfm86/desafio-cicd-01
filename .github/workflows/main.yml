@@ -60,7 +60,11 @@ jobs:
          uses: github/codeql-action/upload-sarif@v3
          with:
           category: docker-result
-          sarif_file: trivy-docker-result.sarif   
+          sarif_file: trivy-docker-result.sarif 
+  Deploy-homolog:
+    needs: [release]
+    uses: joaohfm86/desafio-cicd-01/.github/workflows/deploy.yml@main
+    secrets: inherit
         
 
 

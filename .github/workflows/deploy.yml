@@ -1,0 +1,29 @@
+name: Deploy no kubernetes
+on:
+    workflow_call:
+jobs:
+    deploy:
+        name: "Deploy"
+        runs-on: ubuntu-latest
+        steps:
+            - name: Obetendo o código 
+              uses: actions/checkout@v4
+            - name: Autenticação GKE
+              uses: "google-github-actions/auth@v2"
+              with:
+                credentials_json: "${{ secrets.GCP_CREDENTIALS }}"
+            - uses: "google-github-actions/setup-gcloud@v2"
+              with:
+                install_components: "gke-gcloud-auth-plugin"
+            - name: Authenticate to GKE cluster
+              uses: google-github-actions/get-gke-credentials@v2
+              with:
+                cluster_name: my-first-cluster-1
+                location: us-central1-c
+            - name: Deploy do kubernetes
+              uses: Azure/k8s-deploy@v5
+              with:
+                manifests: |
+                    k8s/deployment.yml
+                images: |
+                    joaohfm/projeto-devops-pro:v${{ github.run_number }}
