@@ -24,6 +24,6 @@ jobs:
               uses: Azure/k8s-deploy@v5
               with:
                 manifests: |
-                    k8s/deployment.yml
+                    k8s/deployment.yaml
                 images: |
                     joaohfm/projeto-devops-pro:v${{ github.run_number }}
