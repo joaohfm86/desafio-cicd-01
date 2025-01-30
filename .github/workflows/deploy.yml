@@ -1,10 +1,20 @@
 name: Deploy no kubernetes
 on:
     workflow_call:
+      inputs:
+        environment-name:
+          type: string
+          required: true
+        environment-url:
+          type: string
+          required: true
 jobs:
     deploy:
         name: "Deploy"
         runs-on: ubuntu-latest
+        environment:
+          name: ${{ inputs.environment-name }}
+          url: ${{ inputs.environment-url }}
         steps:
             - name: Obetendo o código 
               uses: actions/checkout@v4
@@ -20,9 +30,13 @@ jobs:
               with:
                 cluster_name: my-first-cluster-1
                 location: us-central1-c
+            - name: Update deployment
+              run: "sed -i 's/host:homologacao.fabricioveronez.com/host: ${{ vars.BASE_URL }}/g' k8s/deployment.yaml"
+
             - name: Deploy do kubernetes
               uses: Azure/k8s-deploy@v5
               with:
+                namespace: ${{ secrets.K8S_NAMESPACE }}
                 manifests: |
                     k8s/deployment.yaml
                 images: |

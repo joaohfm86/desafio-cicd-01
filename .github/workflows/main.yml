@@ -65,5 +65,15 @@ jobs:
     needs: [release]
     uses: joaohfm86/desafio-cicd-01/.github/workflows/deploy.yml@main
     secrets: inherit
+    with:
+      environment-name: homologacao
+      environment-url: http://homologacao.fabricioveronez.com
+  Deploy-producao:
+    needs: [release]
+    uses: joaohfm86/desafio-cicd-01/.github/workflows/deploy.yml@main
+    secrets: inherit
+    with:
+      environment-name: producao
+      environment-url: http://producao.fabricioveronez.com
         
 
