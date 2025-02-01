@@ -75,7 +75,7 @@ jobs:
     environment:
       name: homologacao
     container:
-      image: fabricioveronez/webdriver-dotnet:chorme
+      image: fabricioveronez/webdriver-dotnet:chrome
       env:
         BASE_URL: "http://${{ vars.BASE_URL }}"
     steps:
